@@ -14,6 +14,7 @@
 [ ] create travis.ci integration
 [ ] Add LICENSE
 [ ] Make sure you have relevant citations
+[ ] what does scikit-learn check_array do? 
 
 ## Installation instructions
 
