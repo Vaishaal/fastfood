@@ -137,8 +137,6 @@ class FastFood2(BaseEstimator, TransformerMixin):
             raise ValueError("n_components must be larger than next_pow_of_two(X.shape[1])")
 
         out = np.zeros((self.n_components, X.shape[0]), 'float32', order="F")
-        print(self.gaussian.shape, self.radamacher.shape, 
-              self.chisquared.shape)
 
         fastfoodcy.ffood(self.gaussian, self.radamacher, self.chisquared,
                       X, out) # , self.n_components, X.shape[1], X.shape[0])

@@ -77,8 +77,8 @@ def sklearn_test():
 
 def benchmark():
     M = 1024*8
-    N = 1024*16
-    D = 1024
+    N = 1024*4
+    D = 1024*4
     
     X = np.random.rand(N, D).astype(np.float32)
 
