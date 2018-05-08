@@ -76,9 +76,9 @@ def sklearn_test():
 
 
 def benchmark():
-    M = 1024*8
-    N = 1024*4
-    D = 1024*4
+    M = 1024*8 # num features
+    N = 1024*32 # rows in data
+    D = 1024  # cols in data
     
     X = np.random.rand(N, D).astype(np.float32)
 

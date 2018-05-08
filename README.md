@@ -3,9 +3,9 @@
 
 # Todo : 
 
-[ ] Get building locally on mac for testing
+[x] Get building locally on mac for testing
 [ ] Get a test against naive tiny random matrix
-[ ] Create a Scikit-learn wrapper
+[x] Create a Scikit-learn wrapper
 [ ] Write test to compare scikit-learn wrapper against scikit-learn rbfsampler
 [ ] Reorganize as a correct module
 [ ] write a setup.py that builds module
