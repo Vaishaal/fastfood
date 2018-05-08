@@ -56,62 +56,6 @@ class FastFood(BaseEstimator, TransformerMixin):
 
         random_state = check_random_state(self.random_state)
 
-        self.gaussian = random_state.normal(0, 1, self.n_components).astype(np.float32).reshape(-1, 1)
-
-        self.radamacher = random_state.binomial(1, 0.5, self.n_components).astype('float32')
-        self.radamacher[np.where(self.radamacher== 0)] = -1
-        self.chisquared = np.sqrt(random_state.chisquare(self.n_components, self.n_components)).astype('float32') * 1.0/np.linalg.norm(self.gaussian).astype('float32')
-        
-        self.radamacher = random_state.binomial(1, 0.5, self.n_components).astype('float32')
-        self.radamacher[np.where(self.radamacher== 0)] = -1
-        self.chisquared = np.sqrt(random_state.chisquare(self.n_components, self.n_components)).astype('float32') * 1.0/np.linalg.norm(self.gaussian).astype('float32')
-
-        self.phase_offsets = random_state.uniform(0, 2 * np.pi, size=self.n_components).astype(np.float32)
-        return self
-
-
-    
-    def transform(self, X):
-        # pad X out to POT
-        X_pad = np.zeros((X.shape[0], npot(X.shape[1])), dtype=np.float32)
-        X_pad[:, :X.shape[1]] = X
-        X = X_pad
-
-        if (X.shape[1] >= self.n_components) :
-            raise ValueError("n_components must be larger than next_pow_of_two(X.shape[1])")
-
-        out = np.zeros((self.n_components, X.shape[0]), 'float32', order="F")
-        ff(self.gaussian, self.radamacher, self.chisquared, X, out, self.n_components, 
-           X.shape[1], X.shape[0])
-        normalizer = (self.scale/np.sqrt(X.shape[1]))
-        out /= normalizer
-
-        phi_fastfood = np.sqrt(2/self.n_components) * np.cos(out.T + self.phase_offsets)
-        return phi_fastfood
-
-        # X = check_array(X)
-        # print(self.gaussian.shape, self.radamacher.shape, self.chisquared.shape, X.shape, self.n_components)
-        # res = fastfood(self.gaussian, self.radamacher, self.chisquared, 
-        #                X, self.n_components, self.random_state, 
-        #                scale=self.scale)
-
-        # return np.cos(res + self.random_offset) / np.sqrt(4*npot(X.shape[1]))
- 
-
-class FastFood2(BaseEstimator, TransformerMixin):
-    def __init__(self, scale=1, n_components=100, 
-                 random_state = None):
-        self.scale = scale
-        self.random_state = random_state
-        self.n_components = n_components
-        self.gaussian = None
-
-    def fit(self, X, y=None):
-        if (X.shape[1] >= self.n_components) :
-            raise ValueError("New array must have more features than input data")
-
-        random_state = check_random_state(self.random_state)
-
         self.gaussian = random_state.normal(0, 1, self.n_components).astype(np.float32)
 
         self.radamacher = random_state.binomial(1, 0.5, self.n_components).astype('float32')
@@ -124,8 +68,6 @@ class FastFood2(BaseEstimator, TransformerMixin):
 
         self.phase_offsets = random_state.uniform(0, 2 * np.pi, size=self.n_components).astype(np.float32)
         return self
-
-
     
     def transform(self, X):
         # pad X out to POT

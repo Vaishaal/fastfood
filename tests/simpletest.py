@@ -54,7 +54,7 @@ def sklearn_test():
     phase = np.random.uniform(low=0.0, high=2*math.pi,size=M)
     sigma = 1024.0
 
-    ffw = fastfood.FastFood2(scale=sigma, n_components = M)
+    ffw = fastfood.FastFood(scale=sigma, n_components = M)
 
     #phi_fastfood = np.sqrt(2/M) * np.cos(fastfoodwrapper.fastfood(g,X,M, scale=sigma) + phase)
     phi_fastfood = ffw.fit_transform(X)
@@ -92,7 +92,7 @@ def benchmark():
     print("sklearn.kernel_approximation.RBFSampler took {:3.1f}s".format(t2-t1))
 
     t1 = time.time()
-    ffw = fastfood.FastFood2(scale=sigma, n_components = M)
+    ffw = fastfood.FastFood(scale=sigma, n_components = M)
     phi_fastfood = ffw.fit_transform(X)
     t2 = time.time()
     print("FastFood took {:3.1f}s".format(t2-t1))

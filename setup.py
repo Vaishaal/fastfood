@@ -1,29 +1,6 @@
 from distutils.core import setup, Extension
 from Cython.Build import cythonize
 
-# INCLUDES=-I/Users/jonas/anaconda/envs/py36/include/eigen3/
-# CPPFLAGS:= -O3 -fPIC  -march=native -shared -std=c++0x -pedantic -Wall -Wshadow -Wpointer-arith -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -mavx -g3 -larmadillo -I/data/vaishaal/eigen/ $(INCLUDES)
-
-# ff_module = Extension('fastfoodcy',
-#                       include_dirs=['/Users/jonas/anaconda/envs/py36/include/eigen3/'], 
-
-#                       extra_compile_args = ['-O3',  
-#                                             '-fPIC', 
-#                                             '-march=native',
-#                                             '-shared', 
-#                                             '-std=c++11', 
-#                                             '-stdlib=libc++', # OSX only
-#                                             '-pedantic', 
-#                                             '-Wall',  
-#                                             '-Wshadow', 
-#                                             '-Wpointer-arith', 
-#                                             '-Wcast-qual',
-#                                             '-Wstrict-prototypes', 
-#                                             '-Wmissing-prototypes', 
-#                                             '-mavx', 
-#                                             '-g3'], 
-#                       sources = ['fastfood/fastfood.cc'])
-
 
 cy_module = Extension("fastfood.fastfoodcy", ["fastfood/fastfoodcy.pyx", 
                                      "fastfood/fastfood.cc",
