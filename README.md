@@ -16,6 +16,9 @@
 [ ] Make sure you have relevant citations
 [ ] what does scikit-learn check_array do? 
 [ ] add docstrings
+[ ] Significantly clean up the code around the typed memory views
+    to make sure the correct types and dimensions and strides
+    are being passed in 
 
 ## Installation instructions
 

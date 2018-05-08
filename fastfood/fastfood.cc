@@ -22,17 +22,18 @@
 
 #include "fht_header_only.h"
 
-extern "C" {
-void fastfood(
-    float* gaussian,
-    float* radamacher,
-    float* chiSquared,
-    float* patchMatrix,
-    float* output,
-    int outSize,
-    int inSize,
-    int numPatches);
-}
+#include "fastfood.h"
+// extern "C" {
+// void fastfood(
+//     float* gaussian,
+//     float* radamacher,
+//     float* chiSquared,
+//     float* patchMatrix,
+//     float* output,
+//     int outSize,
+//     int inSize,
+//     int numPatches);
+// }
 
 using namespace Eigen;
 using namespace std;

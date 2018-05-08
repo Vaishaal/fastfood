@@ -1,4 +1,4 @@
-import fastfoodwrapper
+import fastfood
 import sklearn.kernel_approximation
 from sklearn.metrics.pairwise import rbf_kernel
 import numpy as np
@@ -54,8 +54,7 @@ def sklearn_test():
     phase = np.random.uniform(low=0.0, high=2*math.pi,size=M)
     sigma = 1024.0
 
-    ffw = fastfoodwrapper.FastFood(scale=sigma, 
-                                   n_components = M)
+    ffw = fastfood.FastFood2(scale=sigma, n_components = M)
 
     #phi_fastfood = np.sqrt(2/M) * np.cos(fastfoodwrapper.fastfood(g,X,M, scale=sigma) + phase)
     phi_fastfood = ffw.fit_transform(X)
