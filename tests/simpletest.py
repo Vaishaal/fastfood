@@ -5,7 +5,7 @@ import numpy as np
 import math
 from sklearn.datasets import fetch_mldata
 import sklearn.metrics.pairwise
-
+import time
 
 def standalone_test():
 
@@ -74,5 +74,30 @@ def sklearn_test():
     max_err = np.max(np.abs(K - K_fastfood))
     print("Max err", max_err)
 
+
+def benchmark():
+    M = 1024*8
+    N = 1024*16
+    D = 1024
+    
+    X = np.random.rand(N, D).astype(np.float32)
+
+    sigma = 1024.0
+    gamma = 1.0/(2.0*sigma**2)
+
+    t1 = time.time()
+    rbf = sklearn.kernel_approximation.RBFSampler(gamma=gamma, n_components=M)
+    rbf.fit_transform(X)
+    t2 = time.time()
+    print("sklearn.kernel_approximation.RBFSampler took {:3.1f}s".format(t2-t1))
+
+    t1 = time.time()
+    ffw = fastfood.FastFood2(scale=sigma, n_components = M)
+    phi_fastfood = ffw.fit_transform(X)
+    t2 = time.time()
+    print("FastFood took {:3.1f}s".format(t2-t1))
+
+
 if __name__ == "__main__":
-    sklearn_test()
+    benchmark()
+        
