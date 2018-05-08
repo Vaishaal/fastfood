@@ -11,22 +11,22 @@ ff.argtypes = [ndpointer(ctypes.c_float), ndpointer(ctypes.c_float), ndpointer(c
 def _is_power_2(num):
     return (num != 0 and ((num & (num - 1)) == 0))
 
-def fastfood(gaussian, samples, outsize, seed=0, scale=1):
-    ''' gaussian Input should be IID  N(0,1) gaussian
-        variance is captured in scale (which is (1/sigma*sqrt(d)))
-    '''
+# def fastfood(gaussian, samples, outsize, seed=0, scale=1):
+#     ''' gaussian Input should be IID  N(0,1) gaussian
+#         variance is captured in scale (which is (1/sigma*sqrt(d)))
+#     '''
 
-    assert(_is_power_2(outsize))
-    gaussian = gaussian.astype('float32')
-    # np.random.seed(seed)
-    radamacher = np.random.binomial(1, 0.5, outsize).astype('float32')
-    radamacher[np.where(radamacher== 0)] = -1
-    chisquared = np.sqrt(np.random.chisquare(outsize, outsize)).astype('float32') * 1.0/np.linalg.norm(gaussian).astype('float32')
-    out = np.zeros((outsize, samples.shape[0]), 'float32', order="F")
-    ff(gaussian, radamacher, chisquared, samples, out, outsize, samples.shape[1], samples.shape[0])
-    normalizer = (scale/np.sqrt(samples.shape[1]))
-    out /= normalizer
-    return out.T
+#     assert(_is_power_2(outsize))
+#     gaussian = gaussian.astype('float32')
+#     # np.random.seed(seed)
+#     radamacher = np.random.binomial(1, 0.5, outsize).astype('float32')
+#     radamacher[np.where(radamacher== 0)] = -1
+#     chisquared = np.sqrt(np.random.chisquare(outsize, outsize)).astype('float32') * 1.0/np.linalg.norm(gaussian).astype('float32')
+#     out = np.zeros((outsize, samples.shape[0]), 'float32', order="F")
+#     ff(gaussian, radamacher, chisquared, samples, out, outsize, samples.shape[1], samples.shape[0])
+#     normalizer = (scale/np.sqrt(samples.shape[1]))
+#     out /= normalizer
+#     return out.T
 
 
 def __fastfood(gaussian, radamacher, chisquared, samples, output, outsize, insize, numsamples):
@@ -36,7 +36,6 @@ def __fastfood(gaussian, radamacher, chisquared, samples, output, outsize, insiz
 
 def npot(x):
     return int(2**np.ceil(np.log2(x)))
-
 
 
 class FastFood(BaseEstimator, TransformerMixin):
@@ -73,7 +72,6 @@ class FastFood(BaseEstimator, TransformerMixin):
         X_pad = np.zeros((X.shape[0], npot(X.shape[1])), dtype=np.float32)
         X_pad[:, :X.shape[1]] = X
         X = X_pad
-
 
         if (X.shape[1] >= self.n_components) :
             raise ValueError("n_components must be larger than next_pow_of_two(X.shape[1])")

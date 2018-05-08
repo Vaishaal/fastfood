@@ -15,6 +15,7 @@
 [ ] Add LICENSE
 [ ] Make sure you have relevant citations
 [ ] what does scikit-learn check_array do? 
+[ ] add docstrings
 
 ## Installation instructions
 
